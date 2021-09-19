@@ -5,12 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Document</title>
-    <style>
-        *{
-            border: 1px solid black;
-        }
-    </style>
 </head>
 <body>
     <header class="bg-primary text-center">
@@ -20,9 +16,9 @@
         <div class="row">
             <div class="col-4">
                 <section class="search">
-                    <h4>Search for a City:</h4>
-                    <input type="text" placeholder="ex: New York">
-                    <button class="btn btn-primary">Search</button>
+                    <h2>Search for a City:</h2>
+                    <input id="search-box" type="text" placeholder="ex: New York">
+                    <button id="search-button" class="btn btn-primary">Search</button>
                 </section>
                 <section class="history">
                     <h6>History:</h6>
@@ -32,10 +28,44 @@
                 </section>
             </div>
             <div class="col-8">
-                <section class="current-weather"></section>
-                <section class="five-day"></section>
+                <section class="current-weather">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5>Current Weather:</h5>
+                        </div>
+                        <div class="row">
+                            <div id="city-date" class="city-date"></div>
+                            <div id="daily-icon" class="icon"></div>
+                        </div>
+                        <div id="city-temp" class="row"></div>
+                        <div id="city-wind" class="row"></div>
+                        <div id="city-humidity" class="row"></div>
+                        <div id="city-uvi" class="row"></div>
+                    </div>
+                </section>
+                <section class="five-day">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5>5-Day Forecast:</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col card text-white bg-dark">
+                                <div class="">date</div>
+                                <div class="">icon</div>
+                                <div class="">temp</div>
+                                <div class="">wind</div>
+                                <div class="">humidity</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
+
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="./assets/js/scripts.js"></script>
 </body>
 </html>
