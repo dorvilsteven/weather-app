@@ -6,10 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <title>Document</title>
+    <style>
+        *{
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
     <header class="bg-primary text-center">
         <h1 class="text-light">Weather Dashboard</h1>
     </header>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <section class="search">
+                    <h4>Search for a City:</h4>
+                    <input type="text" placeholder="ex: New York">
+                    <button class="btn btn-primary">Search</button>
+                </section>
+                <section class="history">
+                    <h6>History:</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">Atlanta</li>
+                    </ul>
+                </section>
+            </div>
+            <div class="col-8">
+                <section class="current-weather"></section>
+                <section class="five-day"></section>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
