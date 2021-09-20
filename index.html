@@ -15,24 +15,19 @@
     <main class="container-fluid">
         <div class="row">
             <div class="col-4">
-                <section class="search">
+                <section class="container-fluid search">
                     <h2>Search for a City:</h2>
-                    <input id="search-box" type="text" placeholder="ex: New York">
-                    <button id="search-button" class="btn btn-primary">Search</button>
+                    <input id="search-box" class="w-100" type="text" placeholder="ex: New York">
+                    <button id="search-button" class="btn btn-primary w-100 mt-1">Search</button>
                 </section>
-                <section class="history">
-                    <h6>History:</h6>
-                    <ul class="list-group">
-                        <li class="list-group-item">Atlanta</li>
-                    </ul>
+                <section class="search-history">
+                    <hr>
+                    <ul class="list-group history text-center"></ul>
                 </section>
             </div>
             <div class="col-8">
                 <section class="current-weather">
                     <div class="container-fluid">
-                        <div class="row">
-                            <h5>Current Weather:</h5>
-                        </div>
                         <div class="row">
                             <div id="city-date" class="city-date"></div>
                             <div id="daily-icon" class="icon"></div>
@@ -45,18 +40,7 @@
                 </section>
                 <section class="five-day">
                     <div class="container-fluid">
-                        <div class="row">
-                            <h5>5-Day Forecast:</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col card text-white bg-dark">
-                                <div class="">date</div>
-                                <div class="">icon</div>
-                                <div class="">temp</div>
-                                <div class="">wind</div>
-                                <div class="">humidity</div>
-                            </div>
-                        </div>
+                        <div class="row days"></div>
                     </div>
                 </section>
             </div>
