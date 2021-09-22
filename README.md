@@ -18,7 +18,7 @@ The 5 Day forecast displays 5 cards, one for each date. In each card, the date, 
 
 ![app](./assets/imgs/history.png)
 
-Each time a user searches for a city, the city is then saved to an array inside an object that gets push to local storage. The screen is then updated with the vity they just searched.
+Each time a user searches for a city, the city is then saved to an array inside an object that gets push to local storage. The screen is then updated with the city they just searched, and they are able to easily click the item in the search history and search for an updated weather report of that city.
 
 ### Make sure you visit the Weather App today!
 
