@@ -46,7 +46,7 @@ var fiveDayElement = function(data) {
         var card = $("<div>").addClass("col card text-white bg-dark m-2");
 
         card.append(
-            $("<div>").html(`<h5>${data.list[index].dt_txt}</h5>`)
+            $("<div>").html(`<h5>${data.list[index].dt_txt.substring(0, 10)}</h5>`)
         );
         card.append(
             $("<div>").html(`<img src="http://openweathermap.org/img/wn/${data.list[index].weather[0].icon}.png" alt="weather icon" />`)
