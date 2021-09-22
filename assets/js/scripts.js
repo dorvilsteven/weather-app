@@ -7,7 +7,7 @@ var currentDate = moment().format('M/D/YYYY');
 var cities = {};
 
 var createCityList = function(city) {
-    var liEl = $("<li>").addClass("list-group-item").text(city);
+    var liEl = $("<li>").addClass("list-group-item").attr('data-city', city).text(city);
     $(".history").append(liEl);
 };
 
@@ -41,7 +41,7 @@ var dailyElement = function(cityName, weatherIcon, cityTemp, windSpeed, cityHumi
 // create 5 day Element 
 var fiveDayElement = function(data) {
     fiveDayEl.html("");
-    var index = 3;
+    var index = 0;
     for (var i=0;i<5;i++) {
         var card = $("<div>").addClass("col card text-white bg-dark m-2");
 
@@ -73,7 +73,6 @@ $('#search-button').on('click', function() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${KEY}`).then(function(response) {
         return response.json();
     }).then(function(data) {
-        console.log(data);
         var cityName = data.name;
         var weatherIcon = data.weather[0].icon;
         var weather = data.main.temp;
@@ -94,6 +93,11 @@ $('#search-button').on('click', function() {
     saveCity();
     loadCities();
     textInput.val("");
+});
+
+$(".history").on("click", '.list-group-item', function() {
+    var city = $(this).attr('data-city');
+    textInput.val(city);
 });
 
 loadCities();
