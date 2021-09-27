@@ -94,8 +94,6 @@ var apiCalls = function(cityName) {
             var uvi = data.current.uvi;
             dailyElement(city, weatherIcon, weather, windSpeed, humidity, uvi);
         });
-    }).catch(function(error) {
-         $('#city-date').html("");
     });
     
     // get the 5 day weather forecast 
