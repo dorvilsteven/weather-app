@@ -4,27 +4,24 @@ var textInput = $('#search-box');
 var fiveDayEl = $(".days");
 var currentDate = moment().format('M/D/YYYY');
 
-var cities = {};
+var cities = [];
 
+// Local Storage functions
 var createCityList = function(city) {
     var liEl = $("<li>").addClass("list-group-item").attr('data-city', city).text(city);
     $(".history").append(liEl);
 };
-
 var loadCities = function () {
     cities = JSON.parse(localStorage.getItem("cities-list"));
 
     if (!cities) {
-        cities = {
-            city: []
-        };
+        cities = [];
     }
     $('.history').html('');
-    for (var i=0;i<cities.city.length;i++) {
-        createCityList(cities.city[i]);
+    for (var i=0;i<cities.length;i++) {
+        createCityList(cities[i]);
     }
 }
-
 var saveCity = function() {
   localStorage.setItem("cities-list", JSON.stringify(cities));
 };
@@ -65,10 +62,8 @@ var fiveDayElement = function(data) {
     }
 };
 
-// button click that triggers the api calls for the daily and 5 day
-$('#search-button').on('click', function() {
-    var cityName = textInput.val();
-
+// function that calls both api's 
+var apiCalls = function(cityName) {
     // get the daily weather attributes
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${KEY}`).then(function(response) {
         return response.json();
@@ -80,6 +75,8 @@ $('#search-button').on('click', function() {
         var cityHumidity = data.main.humidity;
 
         dailyElement(cityName, weatherIcon, weather, windSpeed, cityHumidity);
+    }).catch(function(error) {
+         $('#city-date').html(`<p>No cities to display.</p>`);
     });
     
     // get the 5 day weather forecast 
@@ -87,9 +84,17 @@ $('#search-button').on('click', function() {
         return response.json();
     }).then(function(data) {
         fiveDayElement(data);
+    }).catch(function(error) {
+        fiveDayEl.html(`<p>Please make sure all spelling is correct.</p>`);
     });
+};
+// button click that triggers the api calls for the daily and 5 day
+$('#search-button').on('click', function() {
+    var cityName = textInput.val();
 
-    cities.city.push(cityName);
+    apiCalls(cityName);
+
+    cities.push(cityName);
     saveCity();
     loadCities();
     textInput.val("");
@@ -97,7 +102,8 @@ $('#search-button').on('click', function() {
 
 $(".history").on("click", '.list-group-item', function() {
     var city = $(this).attr('data-city');
-    textInput.val(city);
+
+    apiCalls(city);
 });
 
 loadCities();
