@@ -10,3 +10,16 @@ body {
   border-radius: 15px;
   padding: 0.5rem;
 }
+.uv-index {
+  padding: 0.5rem;
+  color: white;
+}
+.green {
+  background-color: green;
+}
+.yellow {
+  background-color: yellow;
+}
+.red {
+  background-color: red;
+}

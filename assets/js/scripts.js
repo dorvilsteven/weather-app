@@ -27,12 +27,21 @@ var saveCity = function() {
 };
 
 // create daily element
-var dailyElement = function(cityName, weatherIcon, cityTemp, windSpeed, cityHumidity) {
+var dailyElement = function(cityName, weatherIcon, cityTemp, windSpeed, cityHumidity, cityUVI) {
     $('#city-date').html(`<h2>${cityName} (${currentDate})</h2>`);
     $('#daily-icon').html(`<h2><img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="weather icon" /></h2>`);
     $('#city-temp').html(`<p>Temp: ${cityTemp} F</p>`);
     $('#city-wind').html(`<p>Wind: ${windSpeed} MPH</p>`);
     $('#city-humidity').html(`<p>Humidity: ${cityHumidity} %</p>`);
+    $('#city-uvi').html(`<p>UV Index: <span class="uv-index">${cityUVI}</span></p>`);
+    if (cityUVI < 3) {
+        $(".uv-index").addClass('green');
+    } else if (cityUVI >= 3 && cityUVI < 6) {
+        $(".uv-index").addClass('yellow');
+    } else {
+        $(".uv-index").addClass('red');
+    }
+    
 };
 
 // create 5 day Element 
@@ -68,15 +77,25 @@ var apiCalls = function(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${KEY}`).then(function(response) {
         return response.json();
     }).then(function(data) {
-        var cityName = data.name;
+        // console.log(data);
+        
+        var latitude = data.coord.lat;
+        var longitude = data.coord.lon;
+    
+        var city = data.name;
         var weatherIcon = data.weather[0].icon;
         var weather = data.main.temp;
         var windSpeed = data.wind.speed;
-        var cityHumidity = data.main.humidity;
+        var humidity = data.main.humidity;
 
-        dailyElement(cityName, weatherIcon, weather, windSpeed, cityHumidity);
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,daily,minutely&units=imperial&appid=${KEY}`).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            var uvi = data.current.uvi;
+            dailyElement(city, weatherIcon, weather, windSpeed, humidity, uvi);
+        });
     }).catch(function(error) {
-         $('#city-date').html(`<p>No cities to display.</p>`);
+         $('#city-date').html("");
     });
     
     // get the 5 day weather forecast 
@@ -85,7 +104,7 @@ var apiCalls = function(cityName) {
     }).then(function(data) {
         fiveDayElement(data);
     }).catch(function(error) {
-        fiveDayEl.html(`<p>Please make sure all spelling is correct.</p>`);
+        fiveDayEl.html(`<p>No cities to display. Please make sure all spelling is correct.</p>`);
     });
 };
 // button click that triggers the api calls for the daily and 5 day
